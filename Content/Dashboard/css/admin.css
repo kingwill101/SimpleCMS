@@ -1,0 +1,243 @@
+﻿body, html {
+    height: 100%;
+    background: #f0f0f1;
+    color: #3c434a;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    font-size: 13px;
+    line-height: 1.4em;
+    min-width: 600px;
+}
+
+div.wrap{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    column-gap: 10px;
+    margin: 10px;
+}
+
+div.wrap > .scoreboard {
+    display: flex;
+    flex-direction: row;
+    column-gap: 29px;
+    align-items: center;
+    justify-content: center;
+}
+
+.scoreboard > .well {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    align-items: center;
+    justify-content: center;
+}
+
+div.wrap > input {
+    flex-grow: 1;
+    padding: 10px;
+} 
+
+div.wrap > span.regular-text{
+    font-size: 15px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.button-row {
+    display: flex;
+    align-content: center;
+    justify-content: flex-start;
+    padding: 10px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+   
+}
+
+.button{
+    color: white;
+    background: black;
+    align-items: center;
+    padding: 12px;
+}
+
+div.admin {
+    height: 100vh;
+    margin: 0 auto;
+}
+
+
+div.body {
+    display: flex;
+    height: 100vh;
+}
+
+div.body > div.panel {
+    display: flex;
+    width: 230px;
+    height: 100%;
+    flex-direction: column;
+}
+
+div.body > div.view {
+    flex-grow: 1;
+    padding: 10px;
+}
+
+div.body > div.panel > div.side-menu {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+.body > .panel > .side-menu > .menu-item {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.body > .panel > .side-menu > .menu-item > .menu-title {
+    margin: 10px;
+}
+
+.body > .panel > .side-menu > .menu-item > .title {
+    margin: 10px;
+    font-size: 30px;
+    color: black;
+    /*text-decoration: underline;*/
+    /*text-underline: #00ff80;*/
+}
+
+
+
+.body > .panel > .side-menu > .menu-item > .sub-menu {
+    margin-left: 20px;
+}
+
+.body.panel.side-menu.menu-item.menu-title {
+    font-size: 15px;
+}
+
+div.body > div.body {
+    display: flex;
+    flex: 2;
+}
+
+.editor-wrap {
+    display: flex;
+    flex-direction: row;
+}
+
+.editor-wrap > .content-editor {
+    width: 70%;
+}
+
+.content-editor > .tox {
+    width: 100%;
+}
+
+.editor-wrap > .content-options {
+    width: 30%;
+    height: 300px;
+    /*background: rebeccapurple;*/
+}
+
+.regular-text {
+    width: 25em;
+}
+
+
+.form-table {
+    border-collapse: collapse;
+    margin-top: 0.5em;
+    width: 100%;
+    clear: both;
+}
+
+
+.form-table,
+.form-table td,
+.form-table th,
+.form-table td p {
+    font-size: 14px;
+}
+
+.form-table td {
+    margin-bottom: 9px;
+    padding: 15px 10px;
+    line-height: 1.3;
+    vertical-align: middle;
+}
+
+.form-table th,
+.form-wrap label {
+    color: #1d2327;
+    font-weight: 400;
+    text-shadow: none;
+    vertical-align: baseline;
+}
+
+.form-table th {
+    vertical-align: top;
+    text-align: left;
+    padding: 20px 10px 20px 0;
+    width: 200px;
+    line-height: 1.3;
+    font-weight: 600;
+}
+
+.form-table th.th-full, /* Not used by core. Back-compat for pre-4.8 */
+.form-table .td-full {
+    width: auto;
+    padding: 20px 10px 20px 0;
+    font-weight: 400;
+}
+
+.form-table td p {
+    margin-top: 4px;
+    margin-bottom: 0;
+}
+
+.form-table .date-time-doc {
+    margin-top: 1em;
+}
+
+.form-table p.timezone-info {
+    margin: 1em 0;
+}
+
+.form-table td fieldset label {
+    margin: 0.35em 0 0.5em !important;
+    display: inline-block;
+}
+
+.form-table td fieldset p label {
+    margin-top: 0 !important;
+}
+
+.form-table td fieldset label,
+.form-table td fieldset p,
+.form-table td fieldset li {
+    line-height: 1.4;
+}
+
+.form-table input.tog,
+.form-table input[type="radio"] {
+    margin-top: -4px;
+    margin-right: 4px;
+    float: none;
+}
+
+.form-table .pre {
+    padding: 8px;
+    margin: 0;
+}
+
+table.form-table td .updated {
+    font-size: 13px;
+}
+
+table.form-table td .updated p {
+    font-size: 13px;
+    margin: 0.3em 0;
+}
