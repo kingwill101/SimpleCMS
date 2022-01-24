@@ -4,9 +4,11 @@
     {
         public string Name { get; }
         public string Value { get; }
+        public int Id { get; }
 
-        public Option(string name, string value)
+        public Option(int id, string name, string value)
         {
+            Id = id;
             Name = name;
             Value = value;
         }

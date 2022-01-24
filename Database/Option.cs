@@ -103,7 +103,7 @@ namespace SimpleCMS.Database
             return true;
         }
 
-        public static Models.Option Read(int ID)
+        public static Models.Option Read(string name)
         {
             var con = Connection.ConnectionString;
             Models.Option option = null;
@@ -111,7 +111,7 @@ namespace SimpleCMS.Database
             con.Open();
             SqlCommand cmd = new SqlCommand("dbo.read_option", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@ID", ID);
+            cmd.Parameters.AddWithValue("@Name", name);
             try
             {
                 var result = cmd.ExecuteReader();
@@ -120,7 +120,7 @@ namespace SimpleCMS.Database
                 {
                     while (result.Read())
                     {
-                        option = new Models.Option(result.GetString(0), result.GetString(1));
+                        option = new Models.Option(result.GetInt32(0),result.GetString(1), result.GetString(2));
                         break;
                     }
                 }

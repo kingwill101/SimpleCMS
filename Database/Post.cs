@@ -30,10 +30,10 @@ namespace SimpleCMS.Database
             return true;
         }
 
-        public static bool Create(int userId, string title, string content)
+        public static int Create(int userId, string title, string content)
         {
             var con = Connection.ConnectionString;
-
+            int newId = -1;
             con.Open();
             var cmd = new SqlCommand("dbo.create_post", con);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -42,18 +42,14 @@ namespace SimpleCMS.Database
             cmd.Parameters.AddWithValue("@content", content);
             try
             {
-                var result = cmd.ExecuteNonQuery();
-                Console.WriteLine("Result {0}", result.ToString());
+                 newId = (int)cmd.ExecuteScalar();
             }
             catch (Exception err)
             {
                 Console.WriteLine(err.Message);
-                return false;
             }
-
-            con.Close();
-
-            return true;
+con.Close();
+            return newId;
         }
 
         public static bool Update(int id, string title, string content)
