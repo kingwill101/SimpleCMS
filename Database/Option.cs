@@ -11,7 +11,7 @@ namespace SimpleCMS.Database
             var con = Connection.ConnectionString;
 
             con.Open();
-            SqlCommand cmd = new SqlCommand("dbo.delete_option", con);
+            var cmd = new SqlCommand("dbo.delete_option", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ID", id);
             try
@@ -34,7 +34,7 @@ namespace SimpleCMS.Database
             var con = Connection.ConnectionString;
 
             con.Open();
-            SqlCommand cmd = new SqlCommand("dbo.delete_optionByName", con);
+            var cmd = new SqlCommand("dbo.delete_optionByName", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Name", name);
             try
@@ -109,7 +109,7 @@ namespace SimpleCMS.Database
             Models.Option option = null;
 
             con.Open();
-            SqlCommand cmd = new SqlCommand("dbo.read_option", con);
+            var cmd = new SqlCommand("dbo.read_option", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Name", name);
             try

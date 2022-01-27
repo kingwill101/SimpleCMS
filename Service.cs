@@ -12,20 +12,20 @@ namespace SimpleCMS
                 var opt = Option.Read(setting);
                 return opt.Value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return "";
             }
         }   
         
-        public static void updateSetting(string setting, string value)
+        public static void UpdateSetting(string setting, string value)
         {
             try
             {
                 var opt = Option.Update(setting, value);
            
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("Unable to update settings, please try again");
             }

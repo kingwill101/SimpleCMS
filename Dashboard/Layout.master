@@ -1,0 +1,97 @@
+﻿<%@ Master Language="C#" CodeBehind="Layout.aspx.cs" Inherits="SimpleCMS.Dashboard.Layout" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title> <%= SimpleCMS.Services.Service.SiteTitle() %> - <%: Page.Title %></title>
+
+
+    <asp:ContentPlaceHolder id="headPlaceHolder" runat="server">
+
+    </asp:ContentPlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/Dashboard/css"/>
+
+    <%: Scripts.Render("~/Scripts/tinymce/tinymce.min.js") %>
+    <%: Scripts.Render("~/Scripts/jquery-3.4.1.js") %>
+    <%: Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js") %>
+
+</head>
+<body>
+
+<div class="admin">
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager" runat="server">
+            <Services>
+                <asp:ServiceReference
+                    runat="server"
+                    InlineScript="True"
+                    path="~/services/HomeService.asmx"/>
+            </Services>
+        </asp:ScriptManager>
+        <div class="body">
+            <div class="panel">
+                <div class="side-menu">
+                    <div class="menu-item">
+                        <div class="title">SimpleCMS</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-title">
+                            <asp:LinkButton PostBackUrl="~/Dashboard/Default.aspx" Text="Dashboard" runat="server"></asp:LinkButton>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-title">Posts</div>
+                        <div class="sub-menu">
+                            <asp:LinkButton PostBackUrl="~/Dashboard/Posts/Default.aspx" Text="All" runat="server"></asp:LinkButton>
+                        </div>
+                        <div class="sub-menu">
+                            <asp:LinkButton PostBackUrl="~/Dashboard/Posts/CreatePost.aspx" Text="Add New" runat="server"></asp:LinkButton>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-title">Categories</div>
+                        <div class="sub-menu">
+                            <asp:LinkButton PostBackUrl="~/Dashboard/Categories/Default.aspx" Text="All" runat="server"></asp:LinkButton>
+                        </div>
+                        <div class="sub-menu">
+                            <asp:LinkButton PostBackUrl="~/Dashboard/Categories/CreateCategory.aspx" Text="Add New" runat="server"></asp:LinkButton>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-title">Users</div>
+                        <div class="sub-menu">
+                            <asp:LinkButton PostBackUrl="~/Dashboard/Users/Default.aspx" Text="All" runat="server"></asp:LinkButton>
+                        </div>
+                        <div class="sub-menu">
+                            <asp:LinkButton PostBackUrl="~/Dashboard/Users/CreateUser.aspx" Text="Add New" runat="server"></asp:LinkButton>
+
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="menu-title">Settings</div>
+                        <div class="sub-menu">
+                            <asp:LinkButton PostBackUrl="~/Dashboard/Settings.aspx" Text="General" runat="server"></asp:LinkButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="view">
+                <asp:ContentPlaceHolder id="ContentPlaceHolder" runat="server">
+
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<asp:ContentPlaceHolder id="scriptPlaceholder" runat="server">
+
+</asp:ContentPlaceHolder>
+</body>
+</html>

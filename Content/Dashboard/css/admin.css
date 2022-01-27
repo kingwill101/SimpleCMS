@@ -2,18 +2,37 @@
     height: 100%;
     background: #f0f0f1;
     color: #3c434a;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     font-size: 13px;
     line-height: 1.4em;
     min-width: 600px;
 }
 
-div.wrap{
+div.wrap {
     display: flex;
     flex: 1;
     flex-direction: column;
     column-gap: 10px;
-    margin: 10px;
+    margin-left: 10px;
+}
+
+
+div.wrap > h3 {
+    display: inline-block;
+    margin: 30px;
+}
+
+.wrap > div.content {
+    width: 90%;
+}
+
+div.wrap > table {
+    margin: 30px;
+    padding: 30px;
+}
+
+div.wrap > .recent-posts {
+    width: 500px;
 }
 
 div.wrap > .scoreboard {
@@ -35,26 +54,39 @@ div.wrap > .scoreboard {
 div.wrap > input {
     flex-grow: 1;
     padding: 10px;
-} 
+}
 
-div.wrap > span.regular-text{
+div.wrap > span.regular-text {
     font-size: 15px;
     padding-bottom: 15px;
     padding-top: 15px;
+}
+
+.content-editor > .wrap > .button-row {
+    margin-left: 0;
+}
+
+div.view > div.wrap > .button-row, .description, .content {
+    margin-left: 30px;
 }
 
 .button-row {
     display: flex;
     align-content: center;
     justify-content: flex-start;
-    padding: 10px;
+    /*padding: 10px;*/
     flex-direction: row;
     flex-wrap: nowrap;
-    align-items: center;
-   
+    align-items: center
 }
 
-.button{
+.content-editor > .wrap > .button-row {
+    margin-top: 10px;
+    margin-left: 30px;
+    padding: 0;
+}
+
+.button {
     color: white;
     background: black;
     align-items: center;
@@ -70,17 +102,49 @@ div.admin {
 div.body {
     display: flex;
     height: 100vh;
+    flex-direction: row;
+}
+
+.editor-wrap > .content-editor > .wrap > .regular-text, textarea, span, input, .tox {
+    margin-left: 30px;
+}
+
+.editor-wrap > .content-editor > .wrap > .button-row > input {
+    margin-left: 0;
+}
+
+.content-editor > .wrap > .button-row > input.no-margin {
+    margin: 0px;
+}
+
+div.wrap > h3, .description {
+    margin-left: 60px;
+}
+
+.label-description {
+    margin-top: 10px;
+}
+
+div.wrap > .content {
+    margin-left: 60px;
+}
+
+.form-table {
+    margin: 0;
+}
+
+td > input, textarea {
+    margin: 0;
 }
 
 div.body > div.panel {
-    display: flex;
-    width: 230px;
-    height: 100%;
+    height: 100vh;
     flex-direction: column;
+    flex-grow: 8;
 }
 
 div.body > div.view {
-    flex-grow: 1;
+    flex: 86;
     padding: 10px;
 }
 
@@ -88,30 +152,79 @@ div.body > div.panel > div.side-menu {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: -120px;
+    z-index: 1;
+    width: 160px;
+    background-color: #1d2327;
 }
 
 .body > .panel > .side-menu > .menu-item {
     display: flex;
     flex-direction: column;
-
+    color: #f0f0f1;
 }
 
 .body > .panel > .side-menu > .menu-item > .menu-title {
     margin: 10px;
+    padding: 10px;
+}
+
+.recent-posts {
+    margin-left: 60px;
 }
 
 .body > .panel > .side-menu > .menu-item > .title {
     margin: 10px;
-    font-size: 30px;
-    color: black;
-    /*text-decoration: underline;*/
-    /*text-underline: #00ff80;*/
+    font-size: 25px;
+    color: #f0f0f1;
 }
 
 
-
 .body > .panel > .side-menu > .menu-item > .sub-menu {
-    margin-left: 20px;
+    display: flex;
+    align-items: stretch;
+    margin-left: 25px;
+    padding: 5px;
+    height: 30px;
+}
+
+.sub-menu > a {
+    color: white;
+    width: 100%;
+    height: 30px;
+    text-decoration: none;
+}
+
+.sub-menu > a:hover {
+    color: black;
+}
+
+.sub-menu:hover {
+    background: white;
+    color: black;
+}
+
+.menu-title {
+    color: #f0f0f1;
+    width: 100%;
+    height: 30px;
+}
+
+.menu-title > a {
+    color: #f0f0f1;
+    text-decoration: none;
+}
+
+.menu-title > a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.menu-title:hover {
+    color: black;
+    background: #f0f0f1;
 }
 
 .body.panel.side-menu.menu-item.menu-title {
@@ -138,12 +251,18 @@ div.body > div.body {
 
 .editor-wrap > .content-options {
     width: 30%;
+    max-width: 15%;
     height: 300px;
-    /*background: rebeccapurple;*/
+    padding: 20px;
+    margin-top: 120px;
 }
 
 .regular-text {
     width: 25em;
+}
+
+td > input + label{
+    padding: 10px;
 }
 
 
@@ -231,6 +350,7 @@ div.body > div.body {
 .form-table .pre {
     padding: 8px;
     margin: 0;
+    table-layout: fixed;
 }
 
 table.form-table td .updated {
@@ -240,4 +360,21 @@ table.form-table td .updated {
 table.form-table td .updated p {
     font-size: 13px;
     margin: 0.3em 0;
+}
+
+
+table.dataTable > tbody > :nth-child(odd),
+ul > :nth-child(odd) {
+    background-color: #f6f7f7;
+}
+
+table.dataTable > tbody > :nth-child(even),
+ul > :nth-child(even) {
+    /*background-color: green;*/
+}
+
+table.dataTable > tbody {
+    /*border-bottom: 1px solid #111;*/
+    border: 1px solid white;
+
 }

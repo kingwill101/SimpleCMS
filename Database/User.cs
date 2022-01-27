@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using SimpleCMS.Exceptions;
 
 namespace SimpleCMS.Database
 {
@@ -11,7 +13,7 @@ namespace SimpleCMS.Database
             var con = Connection.ConnectionString;
 
             con.Open();
-            SqlCommand cmd = new SqlCommand("dbo.delete_user", con);
+            var cmd = new SqlCommand("dbo.delete_user", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ID", id);
             try
@@ -31,7 +33,7 @@ namespace SimpleCMS.Database
         }
 
         public static bool Create(string firstNameText, string lastNameText, string email,
-            string pw)
+            string pw, string username, int role = 0)
         {
             var con = Connection.ConnectionString;
 
@@ -42,6 +44,17 @@ namespace SimpleCMS.Database
             cmd.Parameters.AddWithValue("@lastName", lastNameText);
             cmd.Parameters.AddWithValue("@email", email);
             cmd.Parameters.AddWithValue("@pw", pw);
+            cmd.Parameters.AddWithValue("@UserName", username);
+
+            if (role != 0)
+            {
+                cmd.Parameters.AddWithValue("@Role", role);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@Role", 2);
+            }
+
             try
             {
                 var result = cmd.ExecuteNonQuery();
@@ -59,21 +72,30 @@ namespace SimpleCMS.Database
         }
 
         public static bool Update(int id, string firstNameText, string lastNameText, string email,
-            string pw)
+            string username,
+            string pw = null,
+            int role = 2)
         {
             var con = Connection.ConnectionString;
 
             con.Open();
             var cmd = new SqlCommand("dbo.update_user", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@ID", firstNameText);
+            cmd.Parameters.AddWithValue("@ID", id);
             cmd.Parameters.AddWithValue("@firstName", firstNameText);
             cmd.Parameters.AddWithValue("@lastName", lastNameText);
             cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@Role", role);
+            cmd.Parameters.AddWithValue("@Username", username);
+
+            if (!string.IsNullOrEmpty(pw))
+            {
+                cmd.Parameters.AddWithValue("@Password", pw);
+            }
+
             try
             {
-                var result = cmd.ExecuteNonQuery();
-                Console.WriteLine("Result {0}", result.ToString());
+                cmd.ExecuteNonQuery();
             }
             catch (Exception err)
             {
@@ -86,15 +108,15 @@ namespace SimpleCMS.Database
             return true;
         }
 
-        public static Models.User Read(int ID)
+        public static Models.User Read(int id)
         {
             var con = Connection.ConnectionString;
             Models.User user = null;
 
             con.Open();
-            SqlCommand cmd = new SqlCommand("dbo.read_user_byId", con);
+            var cmd = new SqlCommand("dbo.read_user_byId", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@ID", ID);
+            cmd.Parameters.AddWithValue("@ID", id);
             try
             {
                 var result = cmd.ExecuteReader();
@@ -103,8 +125,7 @@ namespace SimpleCMS.Database
                 {
                     while (result.Read())
                     {
-                        user = new Models.User(result.GetInt32(0), result.GetString(1),
-                            result.GetString(2), result.GetString(3));
+                        user = ReaderToUser(result);
                         break;
                     }
                 }
@@ -129,7 +150,7 @@ namespace SimpleCMS.Database
             Models.User user = null;
 
             con.Open();
-            SqlCommand cmd = new SqlCommand("dbo.read_user_byId", con);
+            var cmd = new SqlCommand("dbo.read_user_byId", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@email", email);
             try
@@ -140,8 +161,7 @@ namespace SimpleCMS.Database
                 {
                     while (result.Read())
                     {
-                        user = new Models.User(result.GetInt32(0), result.GetString(1),
-                            result.GetString(2), result.GetString(3));
+                        user = ReaderToUser(result);
                         break;
                     }
                 }
@@ -153,6 +173,84 @@ namespace SimpleCMS.Database
             catch (Exception err)
             {
                 throw new Exception(message: $"Unable to fetch user {err.Message}");
+            }
+
+            con.Close();
+
+            return user;
+        }
+
+        public static Models.User ReaderToUser(SqlDataReader reader)
+        {
+            return new Models.User(reader.GetInt32(0), reader.GetString(1),
+                reader.GetString(2), reader.GetString(3), username: reader.GetString(4), role: reader.GetInt32(5));
+        }
+
+        public static List<Models.User> List()
+        {
+            var con = Connection.ConnectionString;
+            var users = new List<Models.User>();
+
+            con.Open();
+            var cmd = new SqlCommand("dbo.list_users", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                var result = cmd.ExecuteReader();
+
+                if (result.HasRows)
+                {
+                    while (result.Read())
+                    {
+                        users.Add(ReaderToUser(result));
+                    }
+                }
+                else
+                {
+                    throw new Exception("User not found");
+                }
+            }
+            catch (Exception err)
+            {
+                throw new Exception(message: $"Unable to fetch user {err.Message}");
+            }
+
+            con.Close();
+
+            return users;
+        }
+
+        public static Models.User Login(string name, string password)
+        {
+            var con = Connection.ConnectionString;
+            Models.User user = null;
+
+            con.Open();
+            var cmd = new SqlCommand("dbo.read_userByUserNamePw", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Username", name);
+            cmd.Parameters.AddWithValue("@Password", password);
+            try
+            {
+                var result = cmd.ExecuteReader();
+
+                if (result.HasRows)
+                {
+                    while (result.Read())
+                    {
+                        user = ReaderToUser(result);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                con.Close();
+                throw new DatabaseException();
+            }
+
+            if (user == null)
+            {
+                throw new UserNotFoundException();
             }
 
             con.Close();
