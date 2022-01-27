@@ -362,6 +362,7 @@
     <Content Include="Login.aspx" />
     <Content Include="NotFound.aspx" />
     <Content Include="Post.aspx" />
+    <Content Include="README.md" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
