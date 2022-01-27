@@ -10,7 +10,7 @@
 namespace SimpleCMS.Dashboard {
     
     
-    public partial class Settings_aspx {
+    public partial class SettingsAspx {
         
         /// <summary>
         /// siteTitleTextBox control.

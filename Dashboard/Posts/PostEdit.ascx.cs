@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Web.UI;
-using SimpleCMS.Models;
 
 namespace SimpleCMS.Views
 {

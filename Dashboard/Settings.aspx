@@ -1,4 +1,4 @@
-﻿<%@ Page ValidateRequest="false" Title="Title" Language="C#" MasterPageFile="Layout.master" CodeBehind="Settings.aspx.cs" Inherits="SimpleCMS.Dashboard.Settings_aspx" %>
+﻿<%@ Page ValidateRequest="false" Title="Title" Language="C#" MasterPageFile="Layout.master" CodeBehind="Settings.aspx.cs" Inherits="SimpleCMS.Dashboard.SettingsAspx" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
 

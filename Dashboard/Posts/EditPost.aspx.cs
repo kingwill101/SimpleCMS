@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Microsoft.Ajax.Utilities;
 using SimpleCMS.Database;
 
 namespace SimpleCMS.Dashboard.Posts

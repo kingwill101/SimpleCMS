@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.Script.Serialization;
 using System.Web.Script.Services;
 using System.Web.Services;
 using SimpleCMS.Models;
@@ -80,9 +79,9 @@ namespace SimpleCMS.Services
 
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = true)]
-        public static User Author(int ID)
+        public static User Author(int id)
         {
-            return Database.User.Read(ID);
+            return Database.User.Read(id);
         }
 
         [WebMethod]

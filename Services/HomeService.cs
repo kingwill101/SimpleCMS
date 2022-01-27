@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
-using System.Web.Script.Serialization;
 using System.Web.Script.Services;
 using System.Web.Services;
 using Newtonsoft.Json;

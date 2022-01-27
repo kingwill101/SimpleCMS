@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="Title" Language="C#" MasterPageFile="Layout.master" CodeBehind="Default.aspx.cs" Inherits="SimpleCMS.Dashboard.Default" %>
-<%@ Import Namespace="SimpleCMS.Models" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
 

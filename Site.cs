@@ -1,6 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
+﻿using System.Linq;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using Microsoft.Ajax.Utilities;

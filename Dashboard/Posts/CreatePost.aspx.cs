@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Web.Services;
 using System.Web.UI;
-using SimpleCMS.Database;
 
 namespace SimpleCMS.Dashboard.Posts
 {

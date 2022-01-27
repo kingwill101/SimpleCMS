@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web.Services.Description;
 
 namespace SimpleCMS.Exceptions
 {
