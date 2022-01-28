@@ -7,14 +7,15 @@ namespace SimpleCMS.Dashboard
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var url = Request.RawUrl;
-            if (url.StartsWith("/Dashboard"))
+            var user = (Models.User) Session["user"];
+            if (user == null)
             {
-                var userId = Session["user"];
-                if (userId == null)
-                {
-                    Response.Redirect("~/Login.aspx?refer="+url);
-                }
+                Response.Redirect("~/Login.aspx?refer=" + Request.RawUrl);
+            }
+
+            if (!SimpleCMS.Site.CanAccessDashboard(user))
+            {
+                Response.Redirect("~/Default.aspx");
             }
         }
     }

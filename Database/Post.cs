@@ -192,14 +192,10 @@ namespace SimpleCMS.Database
                         posts.Add(PostFromReader(result));
                     }
                 }
-                else
-                {
-                    throw new Exception("Unable to fetch posts");
-                }
             }
-            catch (Exception err)
+            catch (Exception)
             {
-                throw new Exception(message: $"Unable to fetch post {err.Message}");
+                //ignore
             }
 
             con.Close();
@@ -238,14 +234,46 @@ namespace SimpleCMS.Database
                         posts.Add(PostFromReader(result));
                     }
                 }
-                else
+            }
+            catch (Exception err)
+            {
+                //ignore and return empty
+                Console.WriteLine(err.Message);
+            }
+
+            con.Close();
+
+            return posts;
+        }
+
+        public static List<Models.Post> ListUserPost(int userId)
+        {
+            var con = Connection.ConnectionString;
+            var posts = new List<Models.Post>();
+
+            con.Open();
+
+            var cmd = new SqlCommand("dbo.list_user_posts", con);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ID", userId);
+
+            try
+            {
+                var result = cmd.ExecuteReader();
+
+                if (result.HasRows)
                 {
-                    throw new Exception("Unable to fetch posts");
+                    while (result.Read())
+                    {
+                        posts.Add(PostFromReader(result));
+                    }
                 }
             }
             catch (Exception err)
             {
-                throw new Exception(message: $"Unable to fetch post {err.Message}");
+                //ignore and return empty
+                Console.WriteLine(err.Message);
             }
 
             con.Close();

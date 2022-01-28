@@ -12,7 +12,7 @@
                         <ItemTemplate>
                             <div><%# Eval("username").ToString() %></div>
                             <div>
-                                <asp:LinkButton runat="server" Text="View" PostBackUrl='<%# "/User?user_id=" + Eval("id") %>'/>
+                                <asp:LinkButton runat="server" Text="View" PostBackUrl='<%# "/Author?author_id=" + Eval("id") %>'/>
                                 <asp:LinkButton runat="server" Text="Edit" PostBackUrl='<%# "/Dashboard/Users/EditUser?user_id=" + Eval("id") %>'/>
                             </div>
                         </ItemTemplate>

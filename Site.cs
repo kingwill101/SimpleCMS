@@ -37,6 +37,7 @@ namespace SimpleCMS
             var htmlNodes = imgTag as HtmlNode[] ?? imgTag.ToArray();
             if (!htmlNodes.Any()) return "";
 
+            if (!htmlNodes.First().Attributes.Contains("src")) return "";
             var url = htmlNodes.First().Attributes["src"].Value ?? "";
             return url;
         }
@@ -56,6 +57,13 @@ namespace SimpleCMS
                 default:
                     return "Unknown";
             }
+        }
+
+        public static bool CanAccessDashboard(Models.User user)
+        {
+            var roles = new int[] {1, 2, 3};
+
+            return roles.Contains(user.Role);
         }
     }
 }

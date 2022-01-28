@@ -160,7 +160,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Author.aspx" />
     <Content Include="Category.aspx" />
+    <Content Include="CommentSectionControl.ascx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -626,12 +628,26 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Author.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Author.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Author.aspx.designer.cs">
+      <DependentUpon>Author.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Category.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Category.aspx</DependentUpon>
     </Compile>
     <Compile Include="Category.aspx.designer.cs">
       <DependentUpon>Category.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CommentSectionControl.ascx.cs">
+      <DependentUpon>CommentSectionControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CommentSectionControl.ascx.designer.cs">
+      <DependentUpon>CommentSectionControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
@@ -711,6 +727,7 @@
       <DependentUpon>EditUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="Database\Category.cs" />
+    <Compile Include="Database\Comment.cs" />
     <Compile Include="Database\Connection.cs" />
     <Compile Include="Database\Option.cs" />
     <Compile Include="Database\Post.cs" />
@@ -735,6 +752,7 @@
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\JamCovid\JamCovid.cs" />
     <Compile Include="Models\Option.cs" />
     <Compile Include="Models\Post.cs" />
@@ -792,7 +810,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Dashboard\Users\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

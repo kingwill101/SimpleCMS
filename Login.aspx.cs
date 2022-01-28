@@ -8,8 +8,8 @@ namespace SimpleCMS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var userId = Session["user"];
-            if (userId != null)
+            var user = Session["user"];
+            if (user != null)
             {
                 Response.Redirect("Dashboard/Default.aspx");
             }
@@ -27,8 +27,7 @@ namespace SimpleCMS
             try
             {
                 var user = service.Login(Email.Text, Password.Text);
-                Session["role"] = user.Role;
-                Session["user"] = user.Id;
+                Session["user"] = user;
 
                 var refer = Request.QueryString["refer"];
                 Response.Redirect(refer.IsNullOrWhiteSpace() ? "Dashboard/Default.aspx" : refer);

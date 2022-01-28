@@ -6,12 +6,12 @@ using Post = SimpleCMS.Models.Post;
 
 namespace SimpleCMS
 {
-    public partial class CategoryView : Page
+    public partial class AuthorView : Page
     {
-        private Models.Category _category;
+        private Models.User _user;
         protected List<Post> Posts;
 
-        protected CategoryView()
+        protected AuthorView()
         {
             Posts = new List<Post>();
         }
@@ -19,13 +19,13 @@ namespace SimpleCMS
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Request.QueryString.HasKeys()) return;
-            var category = Request.QueryString["category_id"]; 
+            var user = Request.QueryString["author_id"]; 
                 
             try
             {
-                var cat = Convert.ToInt32(category);
-                _category = Category.Read(cat);
-                Posts = Database.Post.List(_category.Id);
+                var userId = Convert.ToInt32(user);
+                _user = Database.User.Read(userId);
+                Posts = Database.Post.ListUserPost(_user.Id);
             }
             catch (Exception err)
             {

@@ -32,7 +32,11 @@ div.wrap > table {
 }
 
 div.wrap > .recent-posts {
-    width: 500px;
+    max-width: 75%;
+}
+
+.recent-posts > .panel {
+    max-width: 400px;
 }
 
 div.wrap > .scoreboard {
@@ -173,6 +177,10 @@ div.body > div.panel > div.side-menu {
 
 .recent-posts {
     margin-left: 60px;
+    display: flex;
+    flex-direction: row;
+    flex:1;
+    column-gap: 10px;
 }
 
 .body > .panel > .side-menu > .menu-item > .title {

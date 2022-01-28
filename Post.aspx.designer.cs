@@ -67,6 +67,15 @@ namespace SimpleCMS {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ArticleBody;
         
         /// <summary>
+        /// CommentCreate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify, move the field declaration from the designer file to a code-behind file.
+        /// </remarks>
+        protected global::SimpleCMS.CommentSectionControl CommentCreate;
+        
+        /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>

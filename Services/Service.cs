@@ -83,6 +83,13 @@ namespace SimpleCMS.Services
         {
             return Database.User.Read(id);
         }
+        
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = true)]
+        public static Post Post(int id)
+        {
+            return Database.Post.Read(id);
+        }
 
         [WebMethod]
         public static string SiteTitle()
