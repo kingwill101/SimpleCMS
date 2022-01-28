@@ -1,6 +1,7 @@
 use SimpleCMS;
 GO
 
+DROP TABLE IF EXISTS dbo.cms_post_comments;
 DROP TABLE IF EXISTS dbo.cms_options;
 DROP TABLE IF EXISTS cms_post_categories;
 DROP TABLE IF EXISTS cms_categories;
@@ -38,25 +39,42 @@ CREATE TABLE dbo.cms_posts
     content    VARCHAR(max),
     type       int         DEFAULT 1,
     status     VARCHAR(15) DEFAULT 'draft',
+
     created_at DATETIME NOT NULL,
     updated_at DATETIME NOT NULL,
 )
-GO
+    GO
 
 CREATE TABLE dbo.cms_categories
 (
     id          INT PRIMARY KEY IDENTITY (1,1),
     name        VARCHAR(30),
     description VARCHAR(50),
+
     created_at  DATETIME NOT NULL,
     updated_at  DATETIME NOT NULL,
 )
-GO
+    GO
 
 CREATE TABLE dbo.cms_post_categories
 (
     id          INT PRIMARY KEY IDENTITY (1,1),
     post_id     INT REFERENCES dbo.cms_posts (id),
     category_id INT REFERENCES dbo.cms_categories (id),
+
+    created_at  DATETIME NOT NULL,
+    updated_at  DATETIME NOT NULL,
+);
+GO
+
+CREATE TABLE dbo.cms_post_comments
+(
+    id         INT PRIMARY KEY IDENTITY (1,1),
+    post_id    INT REFERENCES dbo.cms_posts (id),
+    user_id    INT REFERENCES cms_users (id),
+    content    VARCHAR(200),
+
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
 );
 GO
