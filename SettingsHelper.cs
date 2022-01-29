@@ -3,7 +3,7 @@ using SimpleCMS.Database;
 
 namespace SimpleCMS
 {
-    public class Service
+    public class SettingsHelper
     {
         public static string GetSetting(string setting)
         {

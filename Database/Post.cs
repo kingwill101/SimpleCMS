@@ -31,10 +31,10 @@ namespace SimpleCMS.Database
             return true;
         }
 
-        public static int Create(int userId, string title, string content)
+        public static Models.Post Create(int userId, string title, string content)
         {
+            Models.Post postId = null;
             var con = Connection.ConnectionString;
-            var newId = -1;
             con.Open();
             var cmd = new SqlCommand("dbo.create_post", con);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -43,15 +43,31 @@ namespace SimpleCMS.Database
             cmd.Parameters.AddWithValue("@content", content);
             try
             {
-                newId = (int) cmd.ExecuteScalar();
+                var result = cmd.ExecuteReader();
+
+                if (result.HasRows)
+                {
+                    while (result.Read())
+                    {
+                        
+                        postId = PostFromReader(result);
+                        break;
+                    }
+                }
+                else
+                {
+                    throw new Exception("post not found");
+                }
             }
             catch (Exception err)
             {
-                Console.WriteLine(err.Message);
+                Console.WriteLine("Error saving post " + err.Message);
+                con.Close();
+                throw new Exception("Unable to create post");
             }
 
             con.Close();
-            return newId;
+            return postId;
         }
 
         public static int CountForUser(int userId)

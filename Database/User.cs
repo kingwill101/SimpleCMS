@@ -32,8 +32,8 @@ namespace SimpleCMS.Database
             return true;
         }
 
-        public static bool Create(string firstNameText, string lastNameText, string email,
-            string pw, string username, int role = 0)
+        public static int Create(string firstNameText, string lastNameText, string email,
+            string pw, string username, int role = Site.Roles.Contributor)
         {
             var con = Connection.ConnectionString;
 
@@ -45,30 +45,19 @@ namespace SimpleCMS.Database
             cmd.Parameters.AddWithValue("@email", email);
             cmd.Parameters.AddWithValue("@pw", pw);
             cmd.Parameters.AddWithValue("@UserName", username);
-
-            if (role != 0)
-            {
-                cmd.Parameters.AddWithValue("@Role", role);
-            }
-            else
-            {
-                cmd.Parameters.AddWithValue("@Role", 2);
-            }
+            cmd.Parameters.AddWithValue("@Role", role);
 
             try
             {
-                var result = cmd.ExecuteNonQuery();
-                Console.WriteLine("Result {0}", result.ToString());
+                
+                var userId = (int) cmd.ExecuteScalar();
+                return userId;
             }
             catch (Exception err)
             {
-                Console.WriteLine(err.Message);
-                return false;
+                Console.WriteLine($"Registration error: {err.Message}");
+                throw new Exception("Unable to complete registration");
             }
-
-            con.Close();
-
-            return true;
         }
 
         public static bool Update(int id, string firstNameText, string lastNameText, string email,

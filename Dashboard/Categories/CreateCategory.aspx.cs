@@ -12,7 +12,7 @@ namespace SimpleCMS.Dashboard.Categories
         protected void CreateUseBtn_OnClick(object sender, EventArgs e)
         {
             var result = Database.Category.Create(Name.Text,
-                Description.Text);
+                Description.Text, ShowInMenuCheckBox.Checked);
             
             if (result)
             {

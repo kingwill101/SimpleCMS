@@ -22,7 +22,7 @@
                     <asp:Label runat="server" Text="Tagline"/>
                 </th>
                 <td>
-                    <asp:TextBox 
+                    <asp:TextBox
                         CssClass="regular-text" ID="siteDescriptionTextBox" runat="server"/>
                     <div class="label-description">
                         In a few words, explain what this site is about.
@@ -38,8 +38,8 @@
                     <asp:TextBox
                         CssClass="regular-text" ID="adminEmailBox" runat="server"/>
                 </td>
-            </tr> 
-            
+            </tr>
+
             <tr>
                 <th scope="row">
                     <asp:Label runat="server" Text="Copyright"/>
@@ -49,13 +49,37 @@
                         CssClass="regular-text" ID="copyrightTextBox" runat="server"/>
                 </td>
             </tr>
+            <tr>
+                <th scope="row">
+                    <asp:Label runat="server" Text="Menu Type"/>
+                </th>
+                <td>
+                    <asp:DropDownList
+                        CssClass="regular-text" ID="MenuType" runat="server">
+                        <asp:ListItem Text="Show on navigation bar" Value="main"/>
+                        <asp:ListItem Text="Show in submenu" Value="sub"/>
+                    </asp:DropDownList>
+                    <div class="label-description"> Show menu as a dropdown or individual headings</div>
+                </td>
+            </tr>
+
+            <tr>
+                <th scope="row">
+                    <asp:Label runat="server" Text="Menu Heading"/>
+                </th>
+                <td>
+                    <asp:TextBox
+                        CssClass="regular-text" Text="Categories" ID="MenuHEading" runat="server"/>
+                    <div class="label-description"> Heading to use for menus</div>
+                </td>
+            </tr>
         </table>
-          <div class="button-row">
-              <asp:Button
-                     CssClass="button"
-                  Text="Save"
-                     ID="updateSettingsBtn"
-                     OnClick="updateSettingsBtn_OnClick" runat="server"/>
-           </div>
+        <div class="button-row">
+            <asp:Button
+                CssClass="button"
+                Text="Save"
+                ID="updateSettingsBtn"
+                OnClick="updateSettingsBtn_OnClick" runat="server"/>
+        </div>
     </div>
 </asp:Content>

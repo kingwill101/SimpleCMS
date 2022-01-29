@@ -7,46 +7,59 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SimpleCMS.Dashboard.Categories {
-    
-    
-    public partial class CreateCategory {
-        
+namespace SimpleCMS.Dashboard.Categories
+{
+
+
+    public partial class CreateCategory
+    {
+
         /// <summary>
         /// Name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify, move the field declaration from the designer file to a code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Name;
-        
+
         /// <summary>
         /// Description control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify, move the field declaration from the designer file to a code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Description;
-        
+
+        /// <summary>
+        /// ShowInMenuCheckBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowInMenuCheckBox;
+
         /// <summary>
         /// CreateUseBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify, move the field declaration from the designer file to a code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button CreateUseBtn;
-        
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new SimpleCMS.Dashboard.Layout Master {
-            get {
+        public new SimpleCMS.Dashboard.Layout Master
+        {
+            get
+            {
                 return ((SimpleCMS.Dashboard.Layout)(base.Master));
             }
         }

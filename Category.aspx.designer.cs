@@ -7,19 +7,41 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SimpleCMS {
-    
-    
-    public partial class CategoryView {
-        
+namespace SimpleCMS
+{
+
+
+    public partial class CategoryView
+    {
+
+        /// <summary>
+        /// CategoryTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CategoryTitle;
+
+        /// <summary>
+        /// CategoryDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CategoryDescription;
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new SimpleCMS.SiteMaster Master {
-            get {
+        public new SimpleCMS.SiteMaster Master
+        {
+            get
+            {
                 return ((SimpleCMS.SiteMaster)(base.Master));
             }
         }

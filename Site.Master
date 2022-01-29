@@ -1,4 +1,6 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="SimpleCMS.SiteMaster" %>
+<%@ Import Namespace="SimpleCMS.Services" %>
+<%@ Import Namespace="SimpleCMS" %>
 
 <!DOCTYPE html>
 
@@ -6,7 +8,7 @@
 <head runat="server">
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title> <%= SimpleCMS.Services.Service.SiteTitle() %> - <%: Page.Title %></title>
+    <title> <%= Service.SiteTitle() %> - <%: Page.Title %></title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -39,10 +41,10 @@
 
         <Services>
             <asp:ServiceReference
-                path="~/Services/Services.asmx"/>
+                path="~/Services/Service.asmx"/>
 
             <asp:ServiceReference
-                path="~/Services/HomeService.asmx"/>
+                path="~/Service/HomeService.asmx"/>
         </Services>
     </asp:ScriptManager>
 
@@ -54,7 +56,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" runat="server" href="~/"> <%= SimpleCMS.Services.Service.SiteTitle() %></a>
+                <a class="navbar-brand" runat="server" href="~/"> <%= Service.SiteTitle() %></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -67,12 +69,84 @@
                     <li>
                         <a runat="server" href="~/Contact">Contact</a>
                     </li>
+
+                    <% if (Service.Categories().Where(cat => cat.ShowInMenu == true).ToList().Count > 0)
+                       { %>
+
+                        <% if (SettingsHelper.GetSetting(SimpleCMS.Site.SiteMenuOrientationKey) == "main")
+                           { %>
+                            <% foreach (var cat in  Service.Categories().Where(cat => cat.ShowInMenu).ToList())
+                               { %>
+                                <li>
+                                    <a href="/Category.aspx?category_id=<%= cat.Id %>"><%= cat.Name %></a>
+                                </li>
+                            <% } %>
+                        <% }
+                           else
+                           { %>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <%= SettingsHelper.GetSetting(SimpleCMS.Site.SiteMenuHeadingKey) %> <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+
+                                    <% foreach (var cat in  Service.Categories().Where(cat => cat.ShowInMenu).ToList())
+                                       { %>
+                                        <li>
+                                            <a href="/Category.aspx?category_id=<%= cat.Id %>"><%= cat.Name %></a>
+                                        </li>
+                                    <% } %>
+
+                                </ul>
+                            </li>
+                        <% } %>
+
+                    <% }
+                    %>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a runat="server" href="~/Login">Login</a>
-                    </li>
+                    <% if (IsLoggedIn && SimpleCMS.Site.CanAccessDashboard(CurrentUser))
+                       { %>
+
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <%= CurrentUser.ToString() %> <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a runat="server" href="~/Dashboard/Default.aspx">Dashboard</a>
+                                </li>
+
+                                <li>
+                                    <a runat="server" href="~/Logout.aspx">Logout</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                    <% }
+                       else if (IsLoggedIn && !SimpleCMS.Site.CanAccessDashboard(CurrentUser))
+                       { %>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <%= CurrentUser.ToString() %> <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a runat="server" href="~/Logout.aspx">Logout</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    <% }
+                       else
+                       { %>
+                        <li>
+                            <a runat="server" href="~/Login.aspx">Login</a>
+                        </li>
+                    <% } %>
                 </ul>
             </div>
 
@@ -83,7 +157,7 @@
         </asp:ContentPlaceHolder>
         <hr/>
         <footer>
-            <p>&copy;<%: SimpleCMS.Services.Service.SiteCopyright() %></p>
+            <p>&copy;<%: Service.SiteCopyright() %></p>
         </footer>
     </div>
 

@@ -17,14 +17,14 @@ namespace SimpleCMS
             var postId = Request.QueryString["post_id"];
             try
             {
-                _post = Database.Post.Read(Convert.ToInt32(postId));
+                _post = Post.Read(Convert.ToInt32(postId));
                 ArticleBody.InnerHtml = _post.Content;
                 ArticleTitle.InnerText = _post.Title;
                 Page.Title = _post.Title;
                 Date.InnerText = _post.Created.ToShortDateString();
-                var author = SimpleCMS.Services.Service.Author(_post.UserId);
+                var author = Services.Service.Author(_post.UserId);
                 Role.InnerText = SimpleCMS.Site.RoleToString(author.Role);
-                Author.InnerText = SimpleCMS.Services.Service.Author(_post.UserId).ToString();
+                Author.InnerText = Services.Service.Author(_post.UserId).ToString();
 
                 Database.Category.PostCategories(_post.Id).ForEach(cat =>
                 {
@@ -47,6 +47,10 @@ namespace SimpleCMS
                 });
 
                 CommentCreate.Post = _post;
+
+                var currentUser = SimpleCMS.Site.UserFromCookie(Request);
+
+                CommentBoxDescription.InnerHtml = currentUser != null ? $"Comment on <strong>{_post.Title}</strong> as {currentUser}" : $"Please login to leave a comment on  <strong>${_post.Title}</strong>";
 
                 CommentCreate.CommentSubmitted += (o, args) => { };
             }

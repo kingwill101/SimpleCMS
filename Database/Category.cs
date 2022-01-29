@@ -31,7 +31,7 @@ namespace SimpleCMS.Database
             return true;
         }
 
-        public static bool Create(string name, string description)
+        public static bool Create(string name, string description, bool showMenu)
         {
             var con = Connection.ConnectionString;
 
@@ -40,6 +40,7 @@ namespace SimpleCMS.Database
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Name", name);
             cmd.Parameters.AddWithValue("@Description", description);
+            cmd.Parameters.AddWithValue("@ShowMenu", showMenu);
 
             try
             {
@@ -57,16 +58,17 @@ namespace SimpleCMS.Database
             return true;
         }
 
-        public static bool Update(int id, string name, string description)
+        public static bool Update(int id, string name, string description, bool showMenu = false)
         {
             var con = Connection.ConnectionString;
 
             con.Open();
-            var cmd = new SqlCommand("dbo.update_user", con);
+            var cmd = new SqlCommand("dbo.update_category", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ID", id);
             cmd.Parameters.AddWithValue("@Name", name);
             cmd.Parameters.AddWithValue("@Description", description);
+            cmd.Parameters.AddWithValue("@ShowMenu", showMenu);
 
             try
             {
@@ -150,7 +152,7 @@ namespace SimpleCMS.Database
         private static Models.Category ReaderToCategory(SqlDataReader reader)
         {
             return new Models.Category(reader.GetInt32(0), reader.GetString(1),
-                reader.GetString(2));
+                reader.GetString(2), reader.GetBoolean(3));
         }
 
         public static List<Models.Category> List()

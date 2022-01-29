@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Buffers.Text;
+using System.Text;
+using System.Web;
 using System.Web.UI;
 using Microsoft.Ajax.Utilities;
+using SimpleCMS.Exceptions;
 
 namespace SimpleCMS
 {
@@ -8,9 +12,16 @@ namespace SimpleCMS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var user = Session["user"];
-            if (user != null)
+            if (Session["user"] != null)
             {
+                Response.Redirect("Dashboard/Default.aspx");
+            }
+            else
+            {
+                var user = SimpleCMS.Site.UserFromCookie(Request);
+
+                if (user == null) return;
+                Session["user"] = user;
                 Response.Redirect("Dashboard/Default.aspx");
             }
         }
@@ -26,15 +37,19 @@ namespace SimpleCMS
 
             try
             {
+                
                 var user = service.Login(Email.Text, Password.Text);
                 Session["user"] = user;
 
-                var refer = Request.QueryString["refer"];
-                Response.Redirect(refer.IsNullOrWhiteSpace() ? "Dashboard/Default.aspx" : refer);
+                Response.Cookies.Add(SimpleCMS.Site.CreateCookie(user.Id));
             }
-            catch (Exception err)
+            catch (UserNotFoundException)
             {
-                ApiResponse.InnerText = err.Message;
+                ApiResponse.InnerText = "Username/Password provided is incorrect";
+            }
+            catch (Exception ex)
+            {
+                ApiResponse.InnerText = ex.Message;
             }
         }
     }
