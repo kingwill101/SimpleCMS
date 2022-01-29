@@ -1,4 +1,5 @@
-use SimpleCMS;
+USE SimpleCMS;
+
 GO
 
 /*
@@ -7,8 +8,13 @@ GO
 CREATE OR ALTER PROCEDURE dbo.create_option @Name AS VARCHAR(120), @Value AS VARCHAR(max)
     AS
 BEGIN
-INSERT INTO dbo.cms_options(option_name, option_value)
-values (@Name, @Value)
+    declare @id as int
+
+    INSERT INTO dbo.cms_options(option_name, option_value)
+    values (@Name, @Value)
+
+    set @id = scope_identity()
+select @id
 end
 GO
 
@@ -60,14 +66,31 @@ GO
   cms_users
 */
 
-CREATE OR ALTER PROCEDURE dbo.create_user @firstName AS VARCHAR(30) ='',
+CREATE OR ALTER PROCEDURE dbo.create_user
+    @firstName AS VARCHAR(30) ='',
     @lastName AS VARCHAR(30) ='',
     @email AS VARCHAR(40),
-    @pw AS VARCHAR(50), @UserName AS VARCHAR(30), @Role AS int = 1
+    @pw AS VARCHAR(50),
+    @UserName AS VARCHAR(30),
+    @Role AS int = 4
     AS
 BEGIN
-INSERT INTO cms_users(first_name, last_name, email, pw, username, role, created_at, updated_at)
-VALUES (@firstName, @lastName, @email, @pw, @UserName, @Role, SYSUTCDATETIME(), SYSUTCDATETIME())
+    declare @id as int
+
+    INSERT INTO cms_users(first_name,
+                          last_name,
+                          email, pw,
+                          username,
+                          role,
+                          created_at,
+                          updated_at)
+    VALUES (@firstName, @lastName,
+            @email, @pw, @UserName,
+            @Role, SYSUTCDATETIME(),
+            SYSUTCDATETIME())
+
+    set @id = scope_identity()
+select @id
 end
 GO
 
@@ -176,10 +199,8 @@ CREATE OR ALTER PROCEDURE dbo.create_post @userID AS int,
     @Type AS INT = 1
     AS
 BEGIN
-    SET NOCOUNT ON;
-    declare @id as int --assuming your identity column is int
+Begin Tran
 
-begin tran
         --      By default we want to make sure the post has a category assigned
 --      use uncategorized as the default category if @Category is null.
 --      Check if it exists and if not we create it
@@ -195,16 +216,22 @@ BEGIN
 END
 
 INSERT INTO dbo.cms_posts(user_id, content, title, created_at, updated_at, type, status)
-VALUES (@userID, @content, @title, SYSUTCDATETIME(), SYSUTCDATETIME(), @Type, @Status)
-
+VALUES (@userID, @content, @title, SYSUTCDATETIME(), SYSUTCDATETIME(), @Type, @Status);
 --      Save the id of the last inserted post
-    set @id = scope_identity()
---      Record the matching category and post
-        EXEC create_post_category @id, @Category
+declare @insertedPostId as int = scope_identity();
+SELECT * FROM cms_posts WHERE id = @insertedPostId;
 
-select @id --return the value for executescaler to catch it
-    commit tran
 
+create table #tmpPostCat
+(
+    id int
+);
+
+INSERT INTO #tmpPostCat
+    EXEC create_post_category @insertedPostId, @Category;
+drop table #tmpPostCat;
+
+Commit TRAN
 
 end
 GO
@@ -234,20 +261,20 @@ end
 GO
 
 
-CREATE OR ALTER PROCEDURE dbo.create_category @Name AS VARCHAR(120), @Description AS VARCHAR(max)
-    AS
+CREATE PROCEDURE dbo.create_category @Name AS VARCHAR(120), @Description AS VARCHAR(max), @ShowMenu AS BIT = 0
+AS
 BEGIN
     SET NOCOUNT ON;
     declare @id as int --assuming your identity column is int
 
-    INSERT INTO dbo.cms_categories(name, description, created_at, updated_at)
-    VALUES (@Name, @Description, SYSUTCDATETIME(), SYSUTCDATETIME())
+    INSERT INTO dbo.cms_categories(name, description, show_menu, created_at, updated_at)
+    VALUES (@Name, @Description, @ShowMenu, SYSUTCDATETIME(), SYSUTCDATETIME())
 
     set @id = scope_identity()
 select @id --return the value for executescaler to catch it
 
 end
-GO
+go
 
 CREATE OR ALTER PROCEDURE dbo.list_categories
     AS
@@ -272,12 +299,15 @@ DELETE FROM cms_categories WHERE id = @ID;
 end
 GO
 
-CREATE OR ALTER PROCEDURE dbo.update_category @ID AS int, @Name AS VARCHAR(120), @Description AS VARCHAR(max)
+CREATE OR ALTER PROCEDURE dbo.update_category @ID AS int, @Name AS VARCHAR(120), @Description AS VARCHAR(max),
+    @ShowMenu AS BIT = 0
     AS
 BEGIN
 UPDATE dbo.cms_categories
 SET name        = @Name,
-    description = @Description
+    description = @Description,
+    show_menu   = @ShowMenu
+
 WHERE id = @ID;
 end
 GO
@@ -288,8 +318,11 @@ GO
 CREATE OR ALTER PROCEDURE dbo.create_post_category @PostID AS int, @CatgeoryID AS INT
     AS
 BEGIN
-INSERT INTO cms_post_categories (post_id, category_id, updated_at, created_at)
-VALUES (@PostID, @CatgeoryID, SYSUTCDATETIME(), SYSUTCDATETIME())
+    declare @id as int
+    INSERT INTO cms_post_categories (post_id, category_id, updated_at, created_at)
+    VALUES (@PostID, @CatgeoryID, SYSUTCDATETIME(), SYSUTCDATETIME())
+    set @id = scope_identity()
+select @id
 end
 GO
 
@@ -378,8 +411,11 @@ GO
 CREATE OR ALTER PROCEDURE dbo.comment_add @UserId AS INT, @PostId AS Int, @Content AS varchar(200)
     AS
 BEGIN
-INSERT INTO cms_post_comments (post_id, user_id, content, updated_at, created_at)
-VALUES (@PostId, @UserId, @Content, SYSUTCDATETIME(), SYSUTCDATETIME())
+    declare @id as int
+    INSERT INTO cms_post_comments (post_id, user_id, content, updated_at, created_at)
+    VALUES (@PostId, @UserId, @Content, SYSUTCDATETIME(), SYSUTCDATETIME())
+    set @id = scope_identity()
+select @id
 end
 
 GO

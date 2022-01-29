@@ -1,6 +1,3 @@
-use SimpleCMS;
-GO
-
 DROP TABLE IF EXISTS dbo.cms_post_comments;
 DROP TABLE IF EXISTS dbo.cms_options;
 DROP TABLE IF EXISTS cms_post_categories;
@@ -50,6 +47,7 @@ CREATE TABLE dbo.cms_categories
     id          INT PRIMARY KEY IDENTITY (1,1),
     name        VARCHAR(30),
     description VARCHAR(50),
+    show_menu   BIT DEFAULT (0),
 
     created_at  DATETIME NOT NULL,
     updated_at  DATETIME NOT NULL,
