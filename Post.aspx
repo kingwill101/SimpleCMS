@@ -25,8 +25,7 @@
                 <button type="button" class="close" aria-hidden="true">&times;</button>
             </div>
             <div class="commentBox">
-
-                <p class="taskDescription">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <p class="taskDescription" ID="CommentBoxDescription" runat="server"></p>
             </div>
             <div class="actionBox">
                 <ul class="commentList">

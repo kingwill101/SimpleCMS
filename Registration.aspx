@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" CodeBehind="Login.aspx.cs" Inherits="SimpleCMS.Login" %>
+﻿<%@ Page Language="C#" CodeBehind="Register.aspx.cs" Inherits="SimpleCMS.Register" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Login</title>
+    <title>Registration | <%= SimpleCMS.Services.Service.SiteTitle() %></title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -15,6 +15,12 @@
     <webopt:bundlereference runat="server" path="~/Content/css"/>
     <style type="text/css"> 
     
+    body{
+        margin:0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+    }
     .login-wrap{
         width: 300px;
         margin: 0 auto;
@@ -65,6 +71,17 @@
 
 </head>
 <body>
+
+<div class="navbar navbar-default">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" runat="server" href="~/"> <%= SimpleCMS.Services.Service.SiteTitle() %></a>
+    </div>
+</div>
 <form runat="server">
     <asp:ScriptManager runat="server">
         <Scripts>
@@ -87,27 +104,58 @@
 
         <Services>
             <asp:ServiceReference
-                path="~/services/Services.asmx"/>
+                path="~/services/SettingsHelpers.asmx"/>
         </Services>
     </asp:ScriptManager>
 
     <div class="login-wrap">
         <asp:Panel CssClass="login-box" ID="Panel1" runat="server">
 
-            <div class="login">
-                <h3>SimpleCMS</h3>
+            <div class="col-md-4 login">
+                <h3>Registration</h3> <br/>
                 <label runat="server" ID="ApiResponse"></label>
-                <label runat="server" for="<%# Email.ClientID %>">Username</label>
-                <asp:TextBox placeholder="Email" ID="Email" runat="server"/>
-                <asp:RequiredFieldValidator CssClass="validation" runat="server" ErrorMessage="Email/Username is required" ControlToValidate="Email"/>
-                <label runat="server" for="<%# Password.ClientID %>">Password</label>
-                <asp:TextBox TextMode="Password" ID="Password" placeholder="Password" runat="server" OnTextChanged="TextBox2_TextChanged"/>
-                <asp:RequiredFieldValidator CssClass="validation" runat="server" ControlToValidate="Password" ErrorMessage="Password cannot be empty"/>
-                <asp:Button ID="Button1" OnClick="Button1_OnClick" runat="server" Height="30px" Text="Sign In"/>
-                <br/>
-                <p class="btn">Don't have a account ?</p>
-                                    <a class="btn btn-lg " href="/Registration.aspx">Register</a>
 
+                <div class="form-group">
+                    <label runat="server" for="<%# Username.ClientID %>">Username</label>
+                    <asp:TextBox CssClass="form-control" placeholder="Username" ID="Username" runat="server"/>
+                    <asp:RequiredFieldValidator CssClass="validation" runat="server" ErrorMessage="Username is required" ControlToValidate="Username"/>
+
+                </div>
+
+                <div class="form-group">
+                    <label runat="server" for="<%# FirstName.ClientID %>">First Name</label>
+                    <asp:TextBox CssClass="form-control" placeholder="First Name" ID="FirstName" runat="server"/>
+                </div>
+
+                <div class="form-group">
+                    <label runat="server" for="<%# LastName.ClientID %>">Last Name</label>
+                    <asp:TextBox CssClass="form-control" placeholder="Last Name" ID="LastName" runat="server"/>
+                </div>
+
+                <div class="form-group">
+                    <label runat="server" for="<%# Email.ClientID %>">Email</label>
+                    <asp:TextBox CssClass="form-control" placeholder="Email" ID="Email" runat="server"/>
+                    <asp:RequiredFieldValidator CssClass="validation" runat="server" ErrorMessage="Email is required" ControlToValidate="Email"/>
+
+                </div>
+
+                <div class="form-group">
+                    <label runat="server" for="<%# Password.ClientID %>">Password</label>
+                    <asp:TextBox CssClass="form-control" TextMode="Password" ID="Password" placeholder="Password" runat="server"/>
+                    <asp:RequiredFieldValidator CssClass="validation" runat="server" ControlToValidate="Password" ErrorMessage="Password cannot be empty"/>
+
+                </div>
+
+                <div class="form-group">
+                    <label runat="server" for="<%# ConfirmPassword.ClientID %>">Confirm Password</label>
+                    <asp:TextBox CssClass="form-control" TextMode="Password" ID="ConfirmPassword" placeholder="Password" runat="server" OnTextChanged="TextBox2_TextChanged"/>
+                    <asp:RequiredFieldValidator CssClass="validation" runat="server" ErrorMessage="Please confirm your password" ControlToValidate="ConfirmPassword"/>
+
+
+                </div>
+
+
+                <asp:Button ID="Button1" OnClick="Button1_OnClick" runat="server" Height="30px" Text="Sign up"/>
             </div>
         </asp:Panel>
     </div>

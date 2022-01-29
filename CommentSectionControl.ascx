@@ -5,8 +5,8 @@
         <asp:TextBox ID="CommentBox" CssClass="form-control" runat="server" placeholder="Your comments"/>
     </div>
     <div class="form-group">
-        <asp:Button ID="Button1" OnClick="Button1_OnClick" runat="server" CssClass="btn btn-default"   Text="Add"/>
+        <asp:Button ID="Button1" OnClick="Button1_OnClick" runat="server" CssClass="btn btn-default" Text="Add"/>
     </div>
 </div>
 
-        <asp:RequiredFieldValidator runat="server" ControlToValidate="CommentBox" ErrorMessage="Comment cannot be empty"/>
+<asp:RequiredFieldValidator runat="server" ControlToValidate="CommentBox" ErrorMessage="Comment cannot be empty"/>

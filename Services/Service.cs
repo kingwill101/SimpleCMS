@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Script.Services;
 using System.Web.Services;
 using SimpleCMS.Models;
+using SimpleCMS.Models.JamCovid;
 
 namespace SimpleCMS.Services
 {
@@ -13,7 +14,7 @@ namespace SimpleCMS.Services
         [ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = true)]
         public static List<Post> Posts(int count = -1)
         {
-            List<Models.Post> posts;
+            List<Post> posts;
             if (count == -1)
             {
                 posts = Database.Post.List();
@@ -74,7 +75,7 @@ namespace SimpleCMS.Services
         [ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = true)]
         public string Title()
         {
-            return SimpleCMS.Service.GetSetting(SimpleCMS.Site.SiteTitleKey);
+            return SettingsHelper.GetSetting(SimpleCMS.Site.SiteTitleKey);
         }
 
         [WebMethod]
@@ -83,7 +84,7 @@ namespace SimpleCMS.Services
         {
             return Database.User.Read(id);
         }
-        
+
         [WebMethod]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json, UseHttpGet = true)]
         public static Post Post(int id)
@@ -94,17 +95,17 @@ namespace SimpleCMS.Services
         [WebMethod]
         public static string SiteTitle()
         {
-            return SimpleCMS.Service.GetSetting(SimpleCMS.Site.SiteTitleKey);
+            return SettingsHelper.GetSetting(SimpleCMS.Site.SiteTitleKey);
         }
 
         [WebMethod]
         public static string SiteCopyright()
         {
-            return SimpleCMS.Service.GetSetting(SimpleCMS.Site.SiteCopyrightKey);
+            return SettingsHelper.GetSetting(SimpleCMS.Site.SiteCopyrightKey);
         }
 
         [WebMethod]
-        public Models.User Login(string emailText, string passwordText)
+        public User Login(string emailText, string passwordText)
         {
             return Database.User.Login(emailText, passwordText);
         }
@@ -113,6 +114,20 @@ namespace SimpleCMS.Services
         public static List<Category> Categories()
         {
             return Database.Category.List();
+        }
+
+        [WebMethod]
+        public static int Register(
+            string firstNameText,
+            string lastNameText, 
+            string emailText,
+            string passwordText,
+            string usernameText,
+            int contributor = SimpleCMS.Site.Roles.Contributor
+        )
+        {
+            return Database.User.Create(firstNameText, lastNameText, emailText, passwordText, usernameText,
+                contributor);
         }
     }
 }

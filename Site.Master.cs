@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.UI;
+using SimpleCMS.Models;
 
 namespace SimpleCMS
 {
@@ -9,5 +10,8 @@ namespace SimpleCMS
         {
 
         }
+
+        public bool IsLoggedIn => SimpleCMS.Site.UserFromCookie(Request) != null;
+        public User CurrentUser => SimpleCMS.Site.UserFromCookie(Request);
     }
 }

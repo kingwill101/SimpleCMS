@@ -2,19 +2,18 @@
 
 <div class="wrap">
 
-    <asp:Label CssClass="regular-text " ID="titleLabel" runat="server" Text="Title"></asp:Label>
-    <asp:TextBox ID="PostTitle" OnTextChanged="PostTitle_OnTextChanged" runat="server" Text="<%# Title %>"></asp:TextBox>
-    <asp:Label CssClass="regular-text" ID="contentLabel" runat="server" Text="Content"></asp:Label>
-    <textarea class="editor" name="editor" runat="server" ID="ContentTextArea" cols="25">
-<%# Content %>
-</textarea>
+    <asp:Label CssClass="regular-text " ID="titleLabel" runat="server" Text="Title"/>
+    <asp:TextBox ID="PostTitle" OnTextChanged="PostTitle_OnTextChanged" runat="server" Text="<%# Title %>"/>
+    <asp:RequiredFieldValidator ErrorMessage="Post title is required" runat="server" ControlToValidate="PostTitle"/>
+    <asp:Label CssClass="regular-text" ID="contentLabel" runat="server" Text="Content"/>
+    <textarea class="editor" name="editor" runat="server" ID="ContentTextArea" cols="25"><%# Content %></textarea>
 
-   <div class="button-row">
-      <asp:Button
-             CssClass="button"
-             ID="Button1"
-             OnClick="Button1_OnClick" runat="server"/>
-   </div>
+    <div class="button-row">
+        <asp:Button
+            CssClass="button"
+            ID="Button1"
+            OnClick="Button1_OnClick" runat="server"/>
+    </div>
 </div>
 
 <script>

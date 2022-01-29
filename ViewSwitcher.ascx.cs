@@ -28,7 +28,7 @@ namespace SimpleCMS
             if (switchViewRoute == null)
             {
                 // Friendly URLs is not enabled or the name of the switch view route is out of sync
-                this.Visible = false;
+                Visible = false;
                 return;
             }
             var url = GetRouteUrl(switchViewRouteName, new { view = AlternateView, __FriendlyUrls_SwitchViews = true });

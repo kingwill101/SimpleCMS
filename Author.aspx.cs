@@ -32,7 +32,6 @@ namespace SimpleCMS
                 Console.WriteLine(err.Message);
                 Response.Redirect($"NotFound.aspx");
             }
-
         }
     }
 }

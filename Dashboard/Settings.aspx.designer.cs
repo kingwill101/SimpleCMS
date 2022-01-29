@@ -7,64 +7,86 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SimpleCMS.Dashboard {
-    
-    
-    public partial class SettingsAspx {
-        
+namespace SimpleCMS.Dashboard
+{
+
+
+    public partial class SettingsAspx
+    {
+
         /// <summary>
         /// siteTitleTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify, move the field declaration from the designer file to a code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox siteTitleTextBox;
-        
+
         /// <summary>
         /// siteDescriptionTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify, move the field declaration from the designer file to a code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox siteDescriptionTextBox;
-        
+
         /// <summary>
         /// adminEmailBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify, move the field declaration from the designer file to a code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox adminEmailBox;
-        
+
         /// <summary>
         /// copyrightTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify, move the field declaration from the designer file to a code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox copyrightTextBox;
-        
+
+        /// <summary>
+        /// MenuType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList MenuType;
+
+        /// <summary>
+        /// MenuHEading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox MenuHEading;
+
         /// <summary>
         /// updateSettingsBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify, move the field declaration from the designer file to a code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button updateSettingsBtn;
-        
+
         /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new SimpleCMS.Dashboard.Layout Master {
-            get {
+        public new SimpleCMS.Dashboard.Layout Master
+        {
+            get
+            {
                 return ((SimpleCMS.Dashboard.Layout)(base.Master));
             }
         }

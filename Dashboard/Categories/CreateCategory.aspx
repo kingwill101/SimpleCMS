@@ -24,21 +24,39 @@
             </tr>
 
             <tr>
-            <th scope="row">
+                <th scope="row">
 
-                <asp:Label runat="server" Text="Description"/>
-            </th>
-            <td>
+                    <asp:Label runat="server" Text="Description"/>
+                </th>
+                <td>
 
-                <asp:TextBox
-                    TextMode="MultiLine"
-                    Rows="5"
-                    CssClass="regular-text"
-                    ID="Description"
-                    runat="server"/>
-                <p>The description is not prominent by default; however,  </p>
-                <p>some themes may show it.</p>
-            </td>
+                    <asp:TextBox
+                        TextMode="MultiLine"
+                        Rows="5"
+                        CssClass="regular-text"
+                        ID="Description"
+                        runat="server"/>
+                    <p>The description is not prominent by default; however, </p>
+                    <p>some themes may show it.</p>
+                </td>
+            </tr>
+
+            <tr>
+                <th scope="row">
+
+                    <asp:Label runat="server" Text="Show in menu"/>
+                </th>
+                <td>
+
+                    <asp:CheckBox
+                        TextMode="MultiLine"
+                        Rows="5"
+                        CssClass="regular-text"
+                        ID="ShowInMenuCheckBox"
+                        runat="server"/>
+                    <p>Whether a menu item should be cretaed.</p>
+                </td>
+            </tr>
         </table>
         <div class="button-row">
             <asp:Button

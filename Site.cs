@@ -1,5 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using HtmlAgilityPack;
 using Microsoft.Ajax.Utilities;
 
@@ -7,10 +11,16 @@ namespace SimpleCMS
 {
     public class Site
     {
+        /**
+     * Common Site settings
+     */
         public const string SiteTitleKey = "site.title";
-        public const string SiteAdminEmailKey = "admin.email";
+
+        public const string SiteAdminEmailKey = "site.admin.email";
         public const string SiteCopyrightKey = "site.copyright";
         public const string SiteDescriptionKey = "site.description";
+        public const string SiteMenuOrientationKey = "site.menu.orientation";
+        public const string SiteMenuHeadingKey = "site.menu.header";
 
         private static string Sanitize(string input)
         {
@@ -46,13 +56,13 @@ namespace SimpleCMS
         {
             switch (role)
             {
-                case 1:
+                case Roles.Admin:
                     return "Administrator";
-                case 2:
+                case Roles.Author:
                     return "Author";
-                case 3:
+                case Roles.Editor:
                     return "Editor";
-                case 4:
+                case Roles.Contributor:
                     return "Contributor";
                 default:
                     return "Unknown";
@@ -61,9 +71,50 @@ namespace SimpleCMS
 
         public static bool CanAccessDashboard(Models.User user)
         {
-            var roles = new int[] {1, 2, 3};
+            var roles = new int[] {Roles.Admin, Roles.Author, Roles.Editor};
 
             return roles.Contains(user.Role);
+        }
+
+        public class Roles
+        {
+            public const int Admin = 1;
+            public const int Author = 2;
+            public const int Editor = 3;
+            public const int Contributor = 4;
+        }
+
+        public static HttpCookie CreateCookie(int id)
+        {
+            var cookie = new HttpCookie("identifier")
+            {
+                Expires = DateTime.Now.AddDays(2),
+                Path = "/",
+                HttpOnly = false,
+                Value = Convert.ToBase64String(Encoding.UTF8.GetBytes(id.ToString()))
+            };
+
+            return cookie;
+        }
+
+        public static Models.User UserFromCookie(HttpRequest req)
+        {
+            if (req.Cookies["identifier"] == null) return null;
+
+            var cookie = req.Cookies["identifier"];
+            var cookieValue = cookie.Value;
+
+            try
+            {
+                var base64EncodedBytes = Convert.FromBase64String(cookieValue);
+                var userId = Convert.ToInt32(Encoding.UTF8.GetString(base64EncodedBytes));
+
+                return Services.Service.Author(userId);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

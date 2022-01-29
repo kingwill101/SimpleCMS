@@ -11,18 +11,24 @@ namespace SimpleCMS.Dashboard.Users
 
         protected void CreateUseBtn_OnClick(object sender, EventArgs e)
         {
-            
-            var result = Database.User.Create(FirstName.Text,
-                LastName.Text,
-                Email.Text,
-                Password.Text,
-                role: Convert.ToInt32(Role.Text),
-                username: Username.Text
-            );
-
-            if (result)
+            try
             {
-                Response.Redirect("Default.aspx");
+                var userId = Services.Service.Register(
+                    FirstName.Text,
+                    LastName.Text,
+                    Email.Text,
+                    Password.Text,
+                    Username.Text,
+                    Convert.ToInt32(Role.Text)
+                );
+
+                var user = Database.User.Read(userId);
+
+                Response.Redirect("~/Dashboard/Users/EditUser.aspx?user_id?" + user.Id);
+            }
+            catch (Exception exception)
+            {
+                return;
             }
         }
     }

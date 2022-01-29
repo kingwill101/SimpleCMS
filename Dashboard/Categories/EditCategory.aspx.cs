@@ -12,21 +12,23 @@ namespace SimpleCMS.Dashboard.Categories
             try
             {
                 var catId = Convert.ToInt32(Request.QueryString["category_id"]);
-                var cat = SimpleCMS.Database.Category.Read(catId);
+                var cat = Database.Category.Read(catId);
 
                 Name.Text = cat.Name;
                 Description.Text = cat.Description;
                 CategoryID.Value = cat.Id.ToString();
+                ShowInMenuCheckBox.Checked = cat.ShowInMenu;
             }
             catch (Exception)
             {
+                Response.Redirect("~/NotFound.aspx");
             }
         }
 
         protected void CreateUseBtn_OnClick(object sender, EventArgs e)
         {
             var result = Database.Category.Update(Convert.ToInt32(CategoryID.Value), Name.Text,
-                Description.Text
+                Description.Text, ShowInMenuCheckBox.Checked
             );
             if (result)
             {

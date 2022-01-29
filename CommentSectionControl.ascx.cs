@@ -8,15 +8,16 @@ using SimpleCMS.Models;
 
 namespace SimpleCMS
 {
-    public partial class CommentSectionControl : System.Web.UI.UserControl
+    public partial class CommentSectionControl : UserControl
     {
         private static readonly object CommentSubmit = new object();
 
-        public Models.Post Post;
+        public Post Post;
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["user"] == null)
+            if (SimpleCMS.Site.UserFromCookie(Request) == null)
             {
                 Button1.Enabled = false;
             }
@@ -24,7 +25,7 @@ namespace SimpleCMS
 
         protected void Button1_OnClick(object sender, EventArgs e)
         {
-            var user = (User) Session["user"];
+            var user = SimpleCMS.Site.UserFromCookie(Request);
 
             if (user == null) return;
 
