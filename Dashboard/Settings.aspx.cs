@@ -14,6 +14,7 @@ namespace SimpleCMS.Dashboard
             siteDescriptionTextBox.Text = SettingsHelper.GetSetting(SimpleCMS.Site.SiteDescriptionKey);
             MenuHEading.Text = SettingsHelper.GetSetting(SimpleCMS.Site.SiteMenuHeadingKey);
             MenuType.Text = SettingsHelper.GetSetting(SimpleCMS.Site.SiteMenuOrientationKey);
+            phoneNumberBox.Text = SettingsHelper.GetSetting(SimpleCMS.Site.SitePhoneKey);
         }
 
         protected void updateSettingsBtn_OnClick(object sender, EventArgs e)
@@ -24,6 +25,7 @@ namespace SimpleCMS.Dashboard
             SettingsHelper.UpdateSetting(SimpleCMS.Site.SiteDescriptionKey, siteDescriptionTextBox.Text);
             SettingsHelper.UpdateSetting(SimpleCMS.Site.SiteMenuHeadingKey, MenuHEading.Text);
             SettingsHelper.UpdateSetting(SimpleCMS.Site.SiteMenuOrientationKey, MenuType.Text);
+            SettingsHelper.UpdateSetting(SimpleCMS.Site.SitePhoneKey, phoneNumberBox.Text);
         }
     }
 }

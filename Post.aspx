@@ -30,10 +30,11 @@
             <div class="actionBox">
                 <ul class="commentList">
                     <% foreach (var comment in GetComments())
+                           
                        { %>
                         <li>
                             <div class="commenterImage">
-                                <img src="https://picsum.photos/200" alt="cats"/>
+                                <img src="https://picsum.photos/200/300?random=<%: new Random().Next(100)%>" alt="cats"/>
                             </div>
                             <div class="commentText">
                                 <p ><%= comment.Content %></p> <span class="date sub-text">on <%= comment.Created.ToShortDateString() %></span>

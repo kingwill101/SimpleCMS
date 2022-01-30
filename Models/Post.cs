@@ -26,5 +26,6 @@ namespace SimpleCMS.Models
             Updated = updated;
         }
         
+        public Post(){}
     }
 }

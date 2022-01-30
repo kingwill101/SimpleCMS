@@ -15,12 +15,12 @@ namespace SimpleCMS
      * Common Site settings
      */
         public const string SiteTitleKey = "site.title";
-
         public const string SiteAdminEmailKey = "site.admin.email";
         public const string SiteCopyrightKey = "site.copyright";
         public const string SiteDescriptionKey = "site.description";
         public const string SiteMenuOrientationKey = "site.menu.orientation";
         public const string SiteMenuHeadingKey = "site.menu.header";
+        public const string SitePhoneKey = "site.phone";
 
         private static string Sanitize(string input)
         {
@@ -47,9 +47,17 @@ namespace SimpleCMS
             var htmlNodes = imgTag as HtmlNode[] ?? imgTag.ToArray();
             if (!htmlNodes.Any()) return "";
 
-            if (!htmlNodes.First().Attributes.Contains("src")) return "";
-            var url = htmlNodes.First().Attributes["src"].Value ?? "";
-            return url;
+            foreach (var img in htmlNodes)
+            {
+                if (img.Attributes.Contains("src"))
+                {
+                    return img.Attributes["src"].Value;
+                }
+            }
+
+            var rand = new Random();
+            
+            return $"https://picsum.photos/200/300?random={rand.Next(10)}";
         }
 
         public static string RoleToString(int role)

@@ -26,9 +26,8 @@ namespace SimpleCMS.Dashboard.Users
 
                 Response.Redirect("~/Dashboard/Users/EditUser.aspx?user_id?" + user.Id);
             }
-            catch (Exception exception)
+            catch (Exception)
             {
-                return;
             }
         }
     }

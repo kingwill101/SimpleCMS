@@ -14,6 +14,10 @@
             return $"{FirstName} {LastName}";
         }
 
+        public User()
+        {
+        }
+
         public User(int id, string firstName, string lastName, string email, int role, string username)
         {
             Id = id;

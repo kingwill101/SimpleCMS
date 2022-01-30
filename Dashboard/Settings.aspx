@@ -39,6 +39,15 @@
                         CssClass="regular-text" ID="adminEmailBox" runat="server"/>
                 </td>
             </tr>
+            <tr>
+                <th scope="row">
+                    <asp:Label runat="server" Text="Phone Number"/>
+                </th>
+                <td>
+                    <asp:TextBox
+                        CssClass="regular-text" ID="phoneNumberBox" runat="server"/>
+                </td>
+            </tr>
 
             <tr>
                 <th scope="row">
